@@ -1,0 +1,10 @@
+{
+    "name" : "project",
+    "author": {
+        "name": "Jay,Chandra"
+    },
+    "main": "src/index.js",
+    "scripts": {
+        "start": "nodemon src/index.js"
+    }
+}
