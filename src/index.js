@@ -6,7 +6,7 @@ const dotenv = require('dotenv').config();
 // const PORT
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', true);
-mongoose.connect("mongodb+srv://mnu4513:monu8181@firstcluster.daae6aq.mongodb.net/mnu4513-DB", {useNewUrlParser: true})
+mongoose.connect("mongodb+srv://mnu4513:monu8181@firstcluster.daae6aq.mongodb.net/bonus4", {useNewUrlParser: true})
 .then(() => console.log('mongoDB is connected'))
 .catch((err) => console.log(err));
 
