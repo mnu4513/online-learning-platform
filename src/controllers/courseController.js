@@ -1,6 +1,6 @@
 const courseModel = require('../models/courseModel');
 const userModel = require('../models/userModel');
-const { validName, isUrl } = require('../validators/validator');
+const { validName, isUrl, validDescription, validDuration } = require('../validators/validator');
 const { isValidObjectId } = require('mongoose');
 
 const createCourse = async function (req, res) {
@@ -11,11 +11,11 @@ const createCourse = async function (req, res) {
         if (!title) return res.status(400).send({ status: false, message: 'please enter title to create a course 😡' });
         if (!validName(title)) return res.status(400).send({ status: false, message: 'please enter a valid title create a course 😡' });
         if (!description) return res.status(400).send({ status: false, message: 'please enter description to create a course 😡' });
-        // if (!description) return res.status(400).send({ status: false, message: 'please enter a valid description to create a course 😡' });
+        if (!validDescription(description)) return res.status(400).send({ status: false, message: 'please enter a valid description to create a course 😡' });
         if (!creator) return res.status(400).send({ status: false, message: 'please enter a creator id create a course 😡' });
         if (!isValidObjectId(creator)) return res.status(400).send({ status: false, message: 'please enter a valid creator id create a course 😡' });
         if (!duration) return res.status(400).send({ status: false, message: 'please enter a duration id create a course 😡' });
-        // if (!duration) return res.status(400).send({ status: false, message: 'please enter a valid duration id create a course 😡' });
+        if (!validDuration(duration)) return res.status(400).send({ status: false, message: 'please enter a valid duration id create a course 😡' });
         if (videoUrl && !isUrl(videoUrl)) return res.status(400).send({ status: false, message: 'please enter a valid video url to create a course 😡' });
         if (topics && !validName(topics)) return res.status(400).send({ status: false, message: 'please enter a valid topic to create a course 😡' });
         if (category && !validName(category)) return res.status(400).send({ status: false, message: 'please enter a valid category to create a course 😡' });
@@ -60,7 +60,7 @@ const viewCourse = async function (req, res) {
         const course = await courseModel.findOne({ _id: courseId, isDeleted: false, approved: true });
         if (!course) return res.status(404).send({ status: false, message: 'sorry! no course found with given courseId 🥺' });
 
-        const rewardedUser = await userModel.findOneAndUpdate({ _id: userId, role: 'employee' }, {$inc: {rewards: 1}}, {new: true});
+        const rewardedUser = await userModel.findOneAndUpdate({ _id: userId, role: 'employee' }, { $inc: { rewards: 1 } }, { new: true });
         console.log(userId);
         console.log(rewardedUser);
         let data = { course: course };
@@ -72,7 +72,7 @@ const viewCourse = async function (req, res) {
         if (rewardedUser) {
             res.status(200).send({ status: true, data: data, user: rewardedUser });
         } else {
-            res.status(200).send({ status: true, data: data});
+            res.status(200).send({ status: true, data: data });
         };
     } catch (error) {
         res.status(500).send({ status: false, message: error.message });
@@ -95,6 +95,7 @@ const updateCourse = async function (req, res) {
         const body = req.body;
         bodyapproved = false;
         const courseUpdated = await courseModel.findOneAndUpdate({ _id: courseId, isDeleted: false, approved: true }, { $set: { ...body } }, { new: true });
+        res.status(404).send({status: false, message: 'no course updated 🥺'});
         res.status(200).send({ status: true, message: '🥳🥳 course sucessfully updated, now wait for approval', data: courseUpdated });
     } catch (error) {
         res.status(500).send({ status: false, message: error.message });
@@ -105,6 +106,7 @@ const deleteCourse = async function (req, res) {
     try {
         const courseId = req.params.courseId;
         const courseDeleted = await courseModel.findOneAndUpdate({ _id: courseId, isDeleted: false }, { $set: { isDeleted: true } }, { new: true });
+        if (!courseDeleted) return res.status(404).send({status: true, message: 'no course found with given courseID or alredy deleted 🥺'});
         res.status(200).send({ status: true, message: '🥳🥳 course sucessfully deleted', data: courseDeleted });
     } catch (error) {
         res.status(500).send({ status: false, message: error.message });
