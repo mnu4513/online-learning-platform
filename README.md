@@ -140,6 +140,7 @@ post api -- '/course'
 An admin will  be able to create a course.
 to create a course, course data will be provided inside request body.
 data to create a course will look like - 
+```
 {
 	"title": "course title",
 	"description": "course description",
@@ -147,8 +148,9 @@ data to create a course will look like -
 	"duration": "24 hours",
 	"topic": "css"
 }
-
+```
 A course data, after creation, will look like - 
+```
 {
     "_id": "63d2a9ba87b879c5c5defa0f",
     "title": "first",
@@ -162,12 +164,13 @@ A course data, after creation, will look like -
     "updatedAt": 2023-01-26T17:10:45.337+00:00,
     "__v": 0
 }
-
+```
 ### __2__ approve a course
 put api -- '/approve'
 
 to approve a course super admin will have update the value of a key in course data, false to true.
 approved course's data in collection will look like - 
+```
 {
     "_id": "63d2a9ba87b879c5c5defa0f",
     "title": "first",
@@ -181,6 +184,7 @@ approved course's data in collection will look like -
     "updatedAt": 2023-01-26T17:10:45.337+00:00,
     "__v": 0
 }
+```
 ### __3__ view a course by courseId
 get api -- '/course/:courseId'
 
