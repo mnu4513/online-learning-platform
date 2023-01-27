@@ -11,11 +11,11 @@ const createCourse = async function (req, res) {
         if (!title) return res.status(400).send({ status: false, message: 'please enter title to create a course 😡' });
         if (!validName(title)) return res.status(400).send({ status: false, message: 'please enter a valid title create a course 😡' });
         if (!description) return res.status(400).send({ status: false, message: 'please enter description to create a course 😡' });
-        if (!description) return res.status(400).send({ status: false, message: 'please enter a valid description to create a course 😡' });
+        // if (!description) return res.status(400).send({ status: false, message: 'please enter a valid description to create a course 😡' });
         if (!creator) return res.status(400).send({ status: false, message: 'please enter a creator id create a course 😡' });
         if (!isValidObjectId(creator)) return res.status(400).send({ status: false, message: 'please enter a valid creator id create a course 😡' });
         if (!duration) return res.status(400).send({ status: false, message: 'please enter a duration id create a course 😡' });
-        if (!duration) return res.status(400).send({ status: false, message: 'please enter a valid duration id create a course 😡' });
+        // if (!duration) return res.status(400).send({ status: false, message: 'please enter a valid duration id create a course 😡' });
         if (videoUrl && !isUrl(videoUrl)) return res.status(400).send({ status: false, message: 'please enter a valid video url to create a course 😡' });
         if (topics && !validName(topics)) return res.status(400).send({ status: false, message: 'please enter a valid topic to create a course 😡' });
         if (category && !validName(category)) return res.status(400).send({ status: false, message: 'please enter a valid category to create a course 😡' });
@@ -24,7 +24,7 @@ const createCourse = async function (req, res) {
 
         const user = await userModel.findById(creator);
         if (!user) return res.status(400).send({ status: false, message: 'no user found with given creator id 😡' });
-        console.log(user);
+
         if (user.role != 'admin') return res.status(400).send({ status: false, message: 'you are not authorised to create a course 😡' });
         const courseCreated = await courseModel.create(body);
         res.status(201).send({ status: true, message: '🥳🥳🥳🥳course sucessfully created', data: courseCreated });
