@@ -72,16 +72,16 @@ A super admin won’t have any reward.
 # _____________________flow__________________ 
 In the sequence of user creating and login, we have use three APIs 
 
-## __1__ create a user
+### __1__ create a user
 postapi -- '/register'
 over we have to provide user's detils in request body to create a user.
 data will look like -- 
-{
+```{
 	"name":"name",
 	"email": "example@mail.com",
 	"password": "sha1$8497e77f$1$c9dd67d7f9e75e278c",
 	"role": "superAdmin"
-}
+}```
 
 ## created user's data
 In our user collenction a user's data will look like - 
@@ -98,7 +98,7 @@ In our user collenction a user's data will look like -
 		"__v": 0
 	}
 
-## __2__ verify a user
+### __2__ verify a user
 post api -- '/verify'
 over we have to provide user's detils in request body to verify a user.
 data will look like -- 
@@ -107,7 +107,7 @@ data will look like --
 	"otp": XXXXXX
 }
 
-## __3__ login a user
+### __3__ login a user
 post api -- '/login'
 over we have to provide user's detils in request body to verify a user.
 data will look like -- 
@@ -130,7 +130,7 @@ After approving a course by a super admin, the course will be visible on the pla
 # _____________________flow__________________ 
 In the sequence of course creating, approval, view, update, delete, we have to user these APIs -
 
-## __1__ create a course 
+### __1__ create a course 
 post api -- '/course'
 
 An admin will  be able to create a course.
@@ -159,7 +159,7 @@ A course data, after creation, will look like -
     "__v": 0
 }
 
-## __2__ approve a course
+### __2__ approve a course
 put api -- '/approve'
 
 to approve a course super admin will have update the value of a key in course data, false to true.
@@ -177,20 +177,20 @@ approved course's data in collection will look like -
     "updatedAt": 2023-01-26T17:10:45.337+00:00,
     "__v": 0
 }
-## __3__ view a course by courseId
+### __3__ view a course by courseId
 get api -- '/course/:courseId'
 
 to fetch any course, user has to privide the courseId in path param.
 
-## __4__ view all courses
+### __4__ view all courses
 get api -- '/courses'
 
 to fetch all the courses, user has not to privide any filter over here.
 in this case, user will get all courses, sorted in alphabatical order of title.
 
-## __5__ update a course
+### __5__ update a course
 put api -- '/course/:courseId'
-## __6__ delete a course
+### __6__ delete a course
 delete api -- '/course/:courseId'
 
 
