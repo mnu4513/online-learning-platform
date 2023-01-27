@@ -76,15 +76,17 @@ In the sequence of user creating and login, we have use three APIs
 postapi -- '/register'
 over we have to provide user's detils in request body to create a user.
 data will look like -- 
-```{
+```
+{
 	"name":"name",
 	"email": "example@mail.com",
 	"password": "sha1$8497e77f$1$c9dd67d7f9e75e278c",
 	"role": "superAdmin"
-}```
-
+}
+```
 ## created user's data
 In our user collenction a user's data will look like - 
+ ```
  {
 		"name": "name",
 		"email": "example@mail.com",
@@ -97,25 +99,27 @@ In our user collenction a user's data will look like -
 		"updatedAt": "2023-01-27T11:11:15.024Z",
 		"__v": 0
 	}
-
+```
 ### __2__ verify a user
 post api -- '/verify'
 over we have to provide user's detils in request body to verify a user.
 data will look like -- 
+```
 {
 	"email": "example@mail.com",
 	"otp": XXXXXX
 }
-
+```
 ### __3__ login a user
 post api -- '/login'
 over we have to provide user's detils in request body to verify a user.
 data will look like -- 
+```
 {
     "email": "example@mail.com",
 	"password": "sha1$8497e77f$1$c9dd67d7f9e75e278c"
 }
-
+```
 
 
 
