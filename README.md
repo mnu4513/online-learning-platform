@@ -6,34 +6,34 @@ This project will manage the whole system of this learning platform.
 # Task
 Task is to build course management system, where you will have to create three user roles, Super Admin, Admin and Employee, perform CRUD operation 
 
-**Sign up** - 
+## Sign up - 
 Create new Employee (name, email, password (encrypted), role )
 By default, Employee
 
-**Sign In** - 
+## Sign In - 
 Sign in with email and password
 
-**Admin** - 
+## Admin - 
 Create new course (title, description, video Url, topics array, duration, category, )
 Update existing course (admin should able to add/delete part of the courses which potentially consists of pdfs, videos, and quizzes)
 Delete Course
 
-**Super Admin** - 
+## Super Admin - 
 Approve Created and updated course by admin (Note: Employee can only see course Approved by super Admin)
 
-**Employee** - 
+## Employee - 
 View existing course (only if logged in and approved by super admin)
 Use Token for login
 Sort course category wise
 Get rewards for progress/completion
 
-# Hint
+## Hint
 Hint:The Following Assignment Involves Authentication And Authorization For all routes/api’s. This will be based on a role key in the Employee Collection. So , hence you will also try to capture the role key in the JWT token.
 
 
 
-**_______________________________complete details of user__________________________**
-# Details
+# complete details of user
+## Details
 So first of all we have to create users.
 Over here users have three different types.
     1. One is employee (students)
@@ -48,20 +48,20 @@ To activate the account he / she will have to verify the account, using the otp,
 After verifying the otp user can login on the platform.
 
 
-**Employee** - 
+## Employee - 
 An employee can’t create a course, can’t update a course, can’t delete a course, can’t approve a course.
 An employee can only access (view) the course (approved) and the employee will be rewarded after successful viewing a course.
 By default an employee will have zero reward and reward will increase, when this will view courses.
 
 
-**Admin** - 
+## Admin - 
 An admin can create a course, can update a self created (approved) course, can delete a self created (approved) course.
 An admin can view courses (approved), created by other admins also.
 An admin can’t approve any courses.
 An admin won’t have any reward.
 
 
-**Super admin** - 
+## Super admin - 
 A super admin can’t create any course.
 Only a super admin can approve courses, created by an admin.
 A super admin won’t have any reward.
@@ -72,7 +72,7 @@ A super admin won’t have any reward.
 # _____________________flow__________________ 
 In the sequence of user creating and login, we have use three APIs 
 
-**__1__ create a user**
+## __1__ create a user
 postapi -- '/register'
 over we have to provide user's detils in request body to create a user.
 data will look like -- 
@@ -83,7 +83,7 @@ data will look like --
 	"role": "superAdmin"
 }
 
-**created user's data**
+## created user's data
 In our user collenction a user's data will look like - 
  {
 		"name": "name",
@@ -98,7 +98,7 @@ In our user collenction a user's data will look like -
 		"__v": 0
 	}
 
-**__2__ verify a user**
+## __2__ verify a user
 post api -- '/verify'
 over we have to provide user's detils in request body to verify a user.
 data will look like -- 
@@ -107,7 +107,7 @@ data will look like --
 	"otp": XXXXXX
 }
 
-**__3__ login a user**
+## __3__ login a user
 post api -- '/login'
 over we have to provide user's detils in request body to verify a user.
 data will look like -- 
@@ -120,7 +120,7 @@ data will look like --
 
 
 
-**_______________________________complete details of course__________________________**
+## _______________________________complete details of course__________________________
 # Details
 first of all an admin will create a course.
 After creating a course, the course will be unapproved.
@@ -130,7 +130,7 @@ After approving a course by a super admin, the course will be visible on the pla
 # _____________________flow__________________ 
 In the sequence of course creating, approval, view, update, delete, we have to user these APIs -
 
-**__1__ create a course**
+## __1__ create a course 
 post api -- '/course'
 
 An admin will  be able to create a course.
@@ -159,7 +159,7 @@ A course data, after creation, will look like -
     "__v": 0
 }
 
-**__2__ approve a course**
+## __2__ approve a course
 put api -- '/approve'
 
 to approve a course super admin will have update the value of a key in course data, false to true.
@@ -177,20 +177,20 @@ approved course's data in collection will look like -
     "updatedAt": 2023-01-26T17:10:45.337+00:00,
     "__v": 0
 }
-**__3__ view a course by courseId**
+## __3__ view a course by courseId
 get api -- '/course/:courseId'
 
 to fetch any course, user has to privide the courseId in path param.
 
-**__4__ view all courses**
+## __4__ view all courses
 get api -- '/courses'
 
 to fetch all the courses, user has not to privide any filter over here.
 in this case, user will get all courses, sorted in alphabatical order of title.
 
-**__5__ update a course**
+## __5__ update a course
 put api -- '/course/:courseId'
-**__6__ delete a course**
+## __6__ delete a course
 delete api -- '/course/:courseId'
 
 
