@@ -25,6 +25,13 @@ const userSchema = new mongoose.Schema({
     rewards: {
         type: Number,
         default: 0
+    },
+    otp: {
+        type: Number
+    },
+    active: {
+        type: Boolean,
+        default: false
     }
 }, {timestamps: true});
 

@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-const {createUser, loginUser} = require('../controllers/userController');
+const {createUser,verifyUser, loginUser} = require('../controllers/userController');
 const {authenticate, authorized} = require('../middlewares/auth');
 const {createCourse, approveCourse, viewCourse, viewAllCourse, updateCourse, deleteCourse} = require('../controllers/courseController');
 
 router.post('/register', createUser);
+router.post('/verify', verifyUser);
 router.post('/login', loginUser);
 
 router.post('/course', authenticate, createCourse);
