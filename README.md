@@ -4,9 +4,9 @@ Over here in this project we are building a backend project.
 This project will manage the whole system of this learning platform.
 
 # special features - 
-## otp to verify a user
-## registration status email
-## password encryption
+- otp to verify a user (for otp please check spam folder)
+- registration status email
+- password encryption
 
 # Task
 Task is to build course management system, where you will have to create three user roles, Super Admin, Admin and Employee, perform CRUD operation 

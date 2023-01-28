@@ -3,7 +3,6 @@ const { validName, validMail, validPassword, validOtp } = require('../validators
 const jwt = require('jsonwebtoken');
 const passwordHash = require('password-hash');
 const nodemailer = require("nodemailer");
-const { text } = require('express');
 
 const createUser = async function (req, res) {
     try {
@@ -16,6 +15,7 @@ const createUser = async function (req, res) {
         if (!validMail(email)) return res.status(400).send({ status: false, message: 'please enter a valid email to register a user 😡' });
         if (!password) return res.status(400).send({ status: false, message: 'please enter password to register a user 😡' });
         if (!validPassword.validate(password)) return res.status(400).send({ status: false, message: 'please enter a valid password to register a user 😡' });
+        if (!role) role = 'employee';
         if (role && !['employee', 'admin', 'superAdmin'].includes(role)) return res.status(400).send({ status: false, message: 'please provide a valid role to register a user 😡' });
         if (rewards && rewards !== 0) return res.status(400).send({ status: false, message: 'new user must not have any reward, please enter a valid reward to register a user 😡' });
 
@@ -49,7 +49,7 @@ const createUser = async function (req, res) {
             if (err) return console.log(err.message)
             if (info) return console.log('Email Sent' + info.response)
         });
-        res.status(201).send({ status: true, message: '🥳🥳🥳user successfully created!', data: userCreated });
+        res.status(201).send({ status: true, message: '🥳🥳🥳user successfully created!', data: {name, email, role} });
     } catch (error) {
         res.status(500).send({ status: false, message: error.message });
     };
@@ -80,9 +80,11 @@ const loginUser = async function (req, res) {
         if (!email) return res.status(400).send({ status: false, message: 'please enter email to login a user 😡' });
         if (!validMail(email)) return res.status(400).send({ status: false, message: 'please enter a valid email to login a user 😡' });
         if (!password) return res.status(400).send({ status: false, message: 'please enter password to login a user 😡' });
-        const user = await userModel.findOne({ email: email, verified: true });
+        const user = await userModel.findOne({ email: email});
         if (!user) return res.status(400).send({ status: false, message: 'email or password is invalid, please enter correct email and password to login a user 😡' });
-        let checkPassword = passwordHash.verify(password, user.password)
+        const verifyUser = await userModel.findOne({email: email, verified: true});
+        if (!verifyUser) return res.status(400).send({status: false, message: 'your account is not verified, please check your mail for verification link and otp 😡'});
+        let checkPassword = passwordHash.verify(password, user.password);
         if (!checkPassword) return res.status(400).send({ status: false, message: "password is wrong" })
 
         const payload = { email: email, userId: user._id };

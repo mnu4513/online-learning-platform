@@ -95,7 +95,7 @@ const updateCourse = async function (req, res) {
         const body = req.body;
         bodyapproved = false;
         const courseUpdated = await courseModel.findOneAndUpdate({ _id: courseId, isDeleted: false, approved: true }, { $set: { ...body } }, { new: true });
-        res.status(404).send({status: false, message: 'no course updated 🥺'});
+        res.status(404).send({ status: false, message: 'no course updated 🥺' });
         res.status(200).send({ status: true, message: '🥳🥳 course sucessfully updated, now wait for approval', data: courseUpdated });
     } catch (error) {
         res.status(500).send({ status: false, message: error.message });
@@ -106,7 +106,7 @@ const deleteCourse = async function (req, res) {
     try {
         const courseId = req.params.courseId;
         const courseDeleted = await courseModel.findOneAndUpdate({ _id: courseId, isDeleted: false }, { $set: { isDeleted: true } }, { new: true });
-        if (!courseDeleted) return res.status(404).send({status: true, message: 'no course found with given courseID or alredy deleted 🥺'});
+        if (!courseDeleted) return res.status(404).send({ status: true, message: 'no course found with given courseID or alredy deleted 🥺' });
         res.status(200).send({ status: true, message: '🥳🥳 course sucessfully deleted', data: courseDeleted });
     } catch (error) {
         res.status(500).send({ status: false, message: error.message });
